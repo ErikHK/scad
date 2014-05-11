@@ -1,16 +1,16 @@
 $fn=40;
 
 //thickness of each link
-th =7;
+th =8;
 
 //height of link
 //h = 20;
 
 //length of link
-l = 20;
+l = 18;
 
 //angle
-a = 33;
+a = 40;
 
 
 //vertical height
@@ -20,19 +20,19 @@ vh = h*sin(a);
 hh = h*cos(a);
 
 //fastener rod radius
-frr = 1.71;
+frr = 2.3;
 //give for the hole
-give = .4;
+give = .6;
 
 //fastener rod distance
-frd = 1;
+frd = .4;
 
 
 //number of links
-num = 5;
+num = 4;
 
 
-el = th*sqrt(1+tan(a)*tan(a))+frd+.3;
+el = th*sqrt(1+tan(a)*tan(a));
 echo(l);
 
 pi = 3.1415;
@@ -120,7 +120,7 @@ cube([frr*2,frr*2-snap,200]);
 module links(rows=1, cols=num)
 {
 //translate([0,j*el,0])
-for(i=[0:cols-2])
+for(i=[0:cols-1])
 {
 
 
@@ -132,13 +132,67 @@ link();
 }
 
 //add the end link:
-translate([(num-1)*(th*sqrt(1+tan(a)*tan(a))+frd),0,0])
-last_link();
+//translate([(num-1)*(th*sqrt(1+tan(a)*tan(a))+frd),0,0])
+//last_link();
 }
+
+
+
+
+//translate([4*(el+frd),2,0])
+
+//translate([frd+4*(el+frd),0,0])
+
+module links_turn()
+{
+
+module link_rot(angle=45)
+{
+rotate([0,0,angle])
+translate([-frd+frd,0,0])
+link();
+}
+translate([el+frd,0,0])
+{
+translate([-(el+frd),0,0])
+link();
+link_rot();
+
+translate([((el+frd))/sqrt(2),(el+frd)/sqrt(2),0])
+{
+link_rot(90);
+
+translate([0,(el+frd),0])
+{
+link_rot(90+45);
+
+translate([-(el+frd)/sqrt(2),(el+frd)/sqrt(2),0])
+link_rot(90+90);
+}
+}
+}
+}
+
 
 links(rows=2);
 
+translate([4*(el+frd),0,0])
+links_turn();
 
+
+//translate([(el+frd)*4,(1+sqrt(2))*(el+frd),0])
+translate([-2*frd+(el+frd)*4,26.17,0])
+rotate([0,0,180])
+translate([-frd*2,0,0])
+links(1,5);
+
+translate([-(el+frd),(1+sqrt(2))*(el+frd),0])
+rotate([0,0,180])
+//mirror([0,1,0])
+links_turn();
+
+translate([-el-frd,0,0])
+link();
 
 
 /*
@@ -156,4 +210,6 @@ link();
 }
 */
 
+
+echo((1+sqrt(2))*(el+frd));
 

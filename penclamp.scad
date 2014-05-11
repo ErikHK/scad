@@ -1,7 +1,7 @@
 $fn = 60;
 
 //hole diameter
-hd = 1.4;
+hd = 1.6;
 
 
 
@@ -12,10 +12,10 @@ difference()
 union()
 {
 translate([-2.5,-2.5-15,0])
-cube([19,20,2]);
+cube([19,20,4]);
 
 translate([-2.5-3,-2.5-15,0])
-cube([25,5,2]);
+cube([25,5,4]);
 }
 
 
@@ -41,18 +41,18 @@ difference()
 {
 difference()
 {
-cube([24,5,12]);
+cube([24+4,8,12]);
 
-translate([12,7,0])
+translate([12+2,9,12])
 rotate([90,0,0])
-cylinder(r=7.5, h=10);
+cylinder(r=7.5, h=12);
 }
 
 //holes
-translate([2.5, 2.5,-1])
+translate([4.5, 3.5,-1])
 cylinder(r=hd, h=25);
 
-translate([2.5+19, 2.5,-1])
+translate([4.5+19, 3.5,-1])
 cylinder(r=hd, h=25);
 }
 }
