@@ -1,4 +1,7 @@
-$fn=40;
+use <../mek/plate_ny.scad>
+include <../mek/inc/constants.scad>
+
+$fn=20;
 
 //thickness of each link
 th =8;
@@ -40,6 +43,24 @@ pi = 3.1415;
 
 snap = .6;
 
+
+module just_tread()
+{
+
+difference()
+{
+translate([0,0,-th*sin(a)/2])
+{
+half();
+translate([0,0,l*cos(a)*2-.01])
+mirror([0,0,1])
+rotate([0,0,0])
+half();
+}
+
+
+}
+}
 
 module half()
 {
@@ -248,8 +269,41 @@ for(i=[0:rows-1])
 
 }
 
-links_();
+//links_();
+
+//translate([3,13.1,0])
+
+ang=40;
+rad=18;
+
+difference()
+{
+translate([0,0,.1])
+cylinder(r=rad-2, h=22.2);
+
+
+cylinder(r=hr+ggive, h=30, $fn=6);
+
+for(i=[0:360/ang])
+{
+translate([cos(i*ang)*rad, sin(i*ang)*rad,0])
+rotate([0,0,i*ang+90])
+translate([-frd-5,0,0])
+scale(1.12)
+just_tread();
+}
+}
+
+//translate([el+frd,0,0])
+//just_tread();
+
 
 
 echo((1+sqrt(2))*(el+frd));
 
+/*
+translate([28,3,0])
+20_links();
+
+plate(4,2);
+*/
