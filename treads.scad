@@ -174,6 +174,9 @@ link_rot(90+90);
 }
 
 
+
+module 20_links()
+{
 links(rows=2);
 
 translate([4*(el+frd),0,0])
@@ -193,22 +196,59 @@ links_turn();
 
 translate([-el-frd,0,0])
 link();
+}
+
+//20_links();
 
 
-/*
-//test with a circle!
-//naaaw, too much work..
-rad = el*num/(2*pi);
-ang = atan2(el,rad);
-for(i=[0:num+1])
+
+
+module links_(rows=5, cols=5)
 {
-//translate([i*(th*sqrt(1+tan(a)*tan(a))+frd),0,0])
-translate([rad*cos(i*ang), rad*sin(i*ang)])
-rotate([0,0,i*ang+90+rad/2])
-link();
+for(i=[0:rows-1])
+{
+  if(i%2==0 && i!=rows-1)
+  {
+  translate([(cols-1)*(el+frd),(i)*(1+sqrt(2))*(el+frd),0])
+
+  links_turn();
+  }
+  else if(i!=rows-1)
+  {
+  translate([0,(i)*(1+sqrt(2))*(el+frd),0])
+  rotate([0,0,180])
+  mirror([0,1,0])
+  links_turn();
+
+  }
+
+
+  translate([0,i*(1+sqrt(2))*(el+frd),0])
+  for(j=[0:cols-2])
+  {
+    if(i%2==0)
+    {
+    translate([j*(el+frd),0,0])
+    link();
+    }
+    else
+    {
+    translate([(j+1)*(el+frd),0,0])
+    mirror([1,0,0])
+    link();
+    
+
+    }
+  }
+}
+
+
+//TODO:
+//also add last link!!!11
 
 }
-*/
+
+links_();
 
 
 echo((1+sqrt(2))*(el+frd));
