@@ -58,6 +58,23 @@ rotate([90,0,0])
 cylinder(r=chr,h=wth*2);
 
 
+//holes through!
+translate([0,0,-2])
+{
+translate([wth*2,wth*2,-bth])
+cylinder(r=mhr, h=20, $fn=40);
+
+translate([iw,wth*2,-bth])
+cylinder(r=mhr, h=20, $fn=40);
+
+translate([iw,il,-bth])
+cylinder(r=mhr, h=20, $fn=40);
+
+translate([wth*2,il,-bth])
+cylinder(r=mhr, h=20, $fn=40);
+}
+
+
 }
 
 //screw holes
