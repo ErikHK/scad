@@ -1,10 +1,12 @@
+$fn = 40;
+
 include <polyScrewThread_r1.scad>
 
 //base radius
 br = 35;
 
 //base height
-bh = 5;
+bh = 8;
 
 //holder width
 hw = 80;
@@ -24,7 +26,7 @@ aw1 = 28+mr*2;
 //axle width 2
 aw2 = 12+mr*2;
 
-give = .2;
+give = 1.5;
 
 
 module screw()
@@ -34,12 +36,14 @@ hex_screw(12/sqrt(2),4,55,16,1.5,2,15,0,4,0);
 
 module screw_hole()
 {
-hex_screw(12/sqrt(2)+give,4,55,16,1.5,2,15,0,4,0);
+//hex_screw(12/sqrt(2)+give,4,55,16,1.5,2,15,0,4,0);
+screw_thread(12/sqrt(2)+give,4,55,16,1.5,2);
 }
 
 
 module base()
 {
+translate([0,0,bh-2])
 screw();
 
 cylinder(r=br, h=bh-2);
@@ -72,8 +76,8 @@ cylinder(r=aw1/2, h=4);
 translate([hw,-hh/2-aw2+aw2/2,0])
 {
 translate([-aw2/2,0,0])
-cube([aw2,aw2,5]);
-translate([-aw2/2,aw2/2,0])
+cube([aw2+1,aw2,5]);
+translate([-aw2/2+1,aw2/2,0])
 cylinder(r=aw2/2, h=10);
 }
 }
@@ -118,9 +122,11 @@ screw_hole();
 }
 
 }
+
 translate([50,20,0])
 pole();
-holder();
+//holder();
 
-translate([-40,0,0])
-base();
+
+//translate([-40,0,0])
+//base();

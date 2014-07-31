@@ -3,7 +3,7 @@ $fn=60;
 
 
 //screw radius
-sr = 5;
+sr = 5.5;
 
 module big_piece()
 {
@@ -14,7 +14,7 @@ minkowski()
 {
 difference()
 {
-cube([70, 110, 4]);
+cube([70, 110, 2]);
 
 translate([35,110,-.1])
 rotate([0,0,10])
@@ -64,7 +64,7 @@ screw_hole();
 module screw_hole()
 {
 translate([0,0,-.1])
-cylinder(r1=5,r2=7.5,h=4.2);
+cylinder(r1=6,r2=8,h=4.2);
 
 }
 
@@ -75,7 +75,7 @@ module center_piece()
 
 difference()
 {
-cylinder(r=57/2+4, h=40);
+cylinder(r=57/2+4, h=42);
 
 cylinder(r=21, h=41);
 
@@ -84,7 +84,7 @@ cylinder(r=57/2+1, h=41);
 
 
 
-translate([0,0,30])
+translate([0,0,32])
 for(i=[0:4])
 {
 rotate([0,0,90*i])
@@ -93,7 +93,7 @@ cylinder(r=sr,h=50);
 }
 
 
-translate([0,0,15])
+translate([0,0,17])
 rotate([0,0,45])
 for(i=[0:4])
 {
@@ -107,22 +107,39 @@ cylinder(r=sr,h=50);
 }
 
 
+module teardrop()
+{
+
+difference()
+{
+union()
+{
+cylinder(r=40, h=4);
+cube([40,40,4]);
+}
+
+translate([28,28,-.1])
+screw_hole();
+}
+}
+
+teardrop();
+
+
+//center_piece();
 
 
 
-center_piece();
 
+//translate([-40+5,60,10])
+//rotate([90,0,0])
+//big_piece();
 
-
-
-translate([-40+5,60,10])
-rotate([90,0,0])
-big_piece();
-
-
+/*
 translate([150,0,0])
 
 
 translate([-40,60,40])
 rotate([90,0,0])
 small_piece();
+*/
