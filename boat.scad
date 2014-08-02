@@ -4,13 +4,13 @@ include <../mek/inc/constants.scad>
 
 
 //boat length
-bl = 140;
+bl = 100;
 
 //boat width
 bw = 75;
 
 //boat depth
-bd = 35;
+bd = 45;
 
 //boat hull thickness
 bhth = 2;
@@ -24,16 +24,15 @@ bhth = 2;
 hh = 13;
 
 //boat front ratio
-bfr = .6;
+bfr = .7;
 
 //boat depth ratio
 bdr = .4;
 
 //scales
 scx = (bw-bhth*2)/bw;
-scz = (bd-bhth*2)/bd;
 scy = (bl-bhth*2)/bl;
-
+scz = (bd-bhth*2)/bd;
 
 //bearing outer radius
 bor = 13/2;
@@ -169,7 +168,11 @@ module boat()
   difference()
   {
   hull();
-  translate([bhth,bhth,bhth*2])
+
+  translate([bhth,bhth,bhth])
+  scale([scx,scy,scz])
+  hull();
+  translate([bhth, bhth, bhth*2])
   scale([scx,scy,scz])
   hull();
   }
@@ -212,6 +215,7 @@ module boat()
 
 }
 
+rotate([90,0,0])
 boat();
 
 //test thingy

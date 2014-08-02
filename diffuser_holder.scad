@@ -1,10 +1,10 @@
 include <roundCornersCube.scad>
 
 //width
-w = 66;
+w = 65;
 
 //height
-h = 39;
+h = 37;
 
 //depth
 d = 9;
@@ -13,13 +13,13 @@ d = 9;
 nh = 6;
 
 //give
-g = 1;
+g = .5;
 
 //radius
-r = 1.5;
+r = 2;
 
 //wall thickness
-wth = 2;
+wth = 2.5;
 
 
 //slit width
@@ -40,7 +40,7 @@ rCube(w+g,h+g,d+1,r);
 
 //slit
 translate([wth+r,h,d-nh-1.5])
-cube([slw,h,1.5]);
+cube([slw,h,2]);
 }
 
 
@@ -97,8 +97,8 @@ cylinder(r=2,h=3,$fn=4);
 }
 
 
-//straight_grid_diffuser();
-grid_diffuser();
+straight_grid_diffuser();
+//grid_diffuser();
 
 
 
