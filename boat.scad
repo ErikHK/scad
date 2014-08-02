@@ -131,15 +131,16 @@ cube([hr*2,hr,4]);
 
 
 
-bar(length=2, one_hole=false, holes=[true,true,false]);
+bar(length=3, one_hole=false, holes=[true,true,true,true]);
 
-translate([hr*4*2,0,4])
+/*
+translate([hr*12,0,4])
 cylinder(r=2+.5,h=1);
 
 
-translate([hr*4*2,0,5])
+translate([hr*12,0,5])
 cylinder(r=2,h=5);
-
+*/
 }
 
 
@@ -215,15 +216,16 @@ module boat()
 
 }
 
-rotate([90,0,0])
-boat();
+//rotate([90,0,0])
+//boat();
 
 //test thingy
 //cube([2,120,2]);
 
 
 
-//translate([38,0,10])  rotate([90,90,0])  motor_holder();
+//translate([38,0,10])  rotate([90,90,0]) 
+ motor_holder();
 
 
 //translate([40,30,0])
