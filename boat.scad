@@ -29,6 +29,21 @@ bfr = .7;
 //boat depth ratio
 bdr = .4;
 
+//rudder length
+rl = 30;
+
+//rudder width
+rw = 5;
+
+//rudder height
+rh = 30;
+
+//rudder radius
+rr = 2;
+
+//rudder distance
+rd = 30;
+
 //scales
 scx = (bw-bhth*2)/bw;
 scy = (bl-bhth*2)/bl;
@@ -216,6 +231,100 @@ module boat()
 
 }
 
+module rudder()
+{
+
+  difference()
+  {
+
+  minkowski()
+  {
+    union()
+    {
+      linear_extrude(height=rh)
+      polygon(points=[[0,0],[rw,0],[rw/2,rl]]);
+
+       translate([rw/2,0,0])
+       cylinder(r=rw/2, h=rh);
+     }
+
+      sphere(r=1, $fn=6);
+
+  }
+
+  //hole
+  translate([rw/2,0,-1])
+  cylinder(r=rr,h=rh+4, $fn=6);
+  }
+
+}
+
+module rudder_holder()
+{
+  
+bar(length=2, one_hole=false, holes=[true,false,true]);
+
+
+  module holder()
+  {
+    difference()
+    {
+
+    union()
+    {
+    translate([hr*4-hr*1.5,hr*1.5-4,0])
+    cube([hr*3,4,rd]);
+
+    translate([hr*4,hr*1.5,rd])
+    rotate([90,0,0])
+    cylinder(r=hr*1.5, h=4);
+    }
+
+    translate([hr*4,hr*1.5+1,rd])
+    rotate([90,0,0])
+    cylinder(r=rr,h=6);
+    }
+  }
+
+holder();
+
+translate([0,-hr*1.5*2+4,0])
+holder();
+
+}
+
+
+module big_motor_pulley(inner_width=10,height=3, depth=.5, fastener_width=3, fastener_height=3, bore_radius=1)
+{
+
+
+difference()
+{
+union()
+{
+translate([0,0,height])
+cylinder(r=fastener_width/2, h=fastener_height);
+
+translate([0,0,0])
+cylinder(r=inner_width/2+depth,h=height);
+}
+
+translate([0,0,height/2])
+rotate_extrude(convexity=10, $fn=30)
+translate([inner_width/2+depth,0,0])
+circle(r=depth);
+
+
+//bore
+cylinder(r=bore_radius,h=height+fastener_height);
+}
+
+}
+
+
+//rudder_holder();
+
+//rudder();
 //rotate([90,0,0])
 //boat();
 
@@ -225,7 +334,7 @@ module boat()
 
 
 //translate([38,0,10])  rotate([90,90,0]) 
- motor_holder();
+//motor_holder();
 
 
 //translate([40,30,0])
@@ -234,5 +343,4 @@ module boat()
 //propeller_holder();
 
 
-
-
+big_motor_pulley();
