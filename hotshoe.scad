@@ -37,7 +37,7 @@ difference()
 				paths = [[0,1,2,3]]
 			);
 	}
-
+/*
 translate(hole1c)
 cylinder(r=hr, h=10);
 
@@ -45,6 +45,7 @@ cylinder(r=hr, h=10);
 translate(hole2c)
 cylinder(r=hr, h=10);
 
+*/
 }
 }
 
