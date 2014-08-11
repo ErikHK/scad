@@ -20,6 +20,9 @@ oth = 3;
 //lip
 lip = 2;
 
+//lip thickness
+lth = 2;
+
 //bottom thickness
 bth = 5;
 
@@ -55,7 +58,7 @@ module holder()
 module holes()
 {
 //translate([0,oth+ith/2+g/2,ih/2-shd])
-translate([0,oth+oth+ith/2,ih/2-shd])
+translate([0,oth+ith+lth/2-.3,ih/2-shd])
 {
 rotate([0,90,0])
 {
@@ -83,10 +86,10 @@ translate([-oth,0,0])
 
 //lips
 translate([-oth,oth+ith+g,0])
-  cube([lip+oth,oth,ih]);
+  cube([lip+oth,lth,ih]);
 
 translate([iw+g-lip, oth+ith+g,0])
-  cube([lip+oth,oth,ih]);
+  cube([lip+oth,lth,ih]);
 
 
 
@@ -168,7 +171,7 @@ fastener();
 
 
 translate([-25,0,0])
-hex_screw(9.5,3,55,26,1.5,2,15,5,2,0);
+hex_screw(9.5,3,55,26+10,1.5,2,15,5,2,0);
 
 translate([-45,0,0])
 hex_nut(13,8,3,55,9.5+.5,1.5);

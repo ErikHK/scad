@@ -98,27 +98,27 @@ cylinder(r=1,h=5);
 
 }
 
-module motor_pulley()
+module motor_pulley(r=4, bore=1.1)
 {
 difference()
 {
 union()
 {
-cylinder(r=4, h=1);
+cylinder(r=r+1, h=1);
 translate([0,0,1])
-cylinder(r1=4, r2=3, h=1);
+cylinder(r1=r+1, r2=r, h=1);
 
 translate([0,0,2])
-cylinder(r=3, h=2);
+cylinder(r=r, h=2);
 
 
 translate([0,0,4])
-cylinder(r1=3, r2=4, h=1);
+cylinder(r1=r, r2=r+1, h=1);
 translate([0,0,5])
-cylinder(r=4, h=1);
+cylinder(r=r+1, h=1);
 }
 
-cylinder(r=1,h=8);
+cylinder(r=bore,h=8);
 }
 
 }
@@ -294,7 +294,7 @@ holder();
 }
 
 
-module big_motor_pulley(inner_width=10,height=3, depth=.5, fastener_width=3, fastener_height=3, bore_radius=1)
+module big_motor_pulley(inner_width=20,height=6, depth=1.5, fastener_width=10, fastener_height=3, bore_radius=1.5)
 {
 
 
@@ -342,5 +342,20 @@ cylinder(r=bore_radius,h=height+fastener_height);
 //translate([-20,0,0])
 //propeller_holder();
 
-
+/*
 big_motor_pulley();
+translate([30,0,0])
+big_motor_pulley(bore_radius=1.4);
+translate([60,0,0])
+big_motor_pulley(bore_radius=1.3);
+*/
+
+/*
+motor_pulley(bore=1.0);
+translate([15,0,0])
+motor_pulley(bore=1.1);
+translate([15*2,0,0])
+motor_pulley(bore=1.2);
+*/
+
+motor_pulley(r=5, bore=1.2);
