@@ -1,6 +1,6 @@
 $fn=30;
 //thickness
-th = 30+2;
+th = 20+2;
 
 
 
@@ -66,7 +66,7 @@ difference()
 {
 minkowski()
 {
-skylt(holes=false);
+skylt(holes=true);
 cylinder(r=2,h=.1,$fn=6);
 }
 
