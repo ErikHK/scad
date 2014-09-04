@@ -19,10 +19,19 @@ include <hose_quick_connector.scad>
 //hex_bolt(10,16);
 //hex_bolt(12,24);
 
+
+translate([0,0,-5])
 difference()
 {
+union()
+{
+translate([0,0,9])
+cylinder(r1=9.5, r2=6.5, h=5);
+
 thread_out(20+1.7,9);
-cylinder(r=9/2, h=30);
+}
+
+cylinder(r=9/2, h=40);
 }
 
 defQ = 17;

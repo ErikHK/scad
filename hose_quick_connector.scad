@@ -9,7 +9,7 @@ module snap_connector(){
 			translate([0,0,25]) cylinder(h=1.5, r=15.7/2);
 			translate([0,0,20]) cylinder(h=3.2, r=15.7/2);
 			translate([0,0,19]) cylinder(h=3, r=17/2);
-			translate([0,0, 6]) cylinder(h=2.88, r=19.5/2);
+			//translate([0,0, 6]) cylinder(h=2.88, r=19.5/2);
 			cylinder(r=13/2, h=28);
 			//cylinder(h=2.88, r=29/2);
 			translate([0,0,26.5]) rotate_extrude(convexity = 10)
