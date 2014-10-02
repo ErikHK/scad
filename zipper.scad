@@ -211,10 +211,13 @@ module slider()
   }
 
 }
-
+translate([0,-10,0])
 slider();
 
-translate([0,10,0])
+
+zipper();
+translate([40,0,0])
+mirror([1,0,0])
 zipper();
 /*
 translate([tl*2-pr1*2-dtc+dtac[0],pw-pr1/2+g,0])
