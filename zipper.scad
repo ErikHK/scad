@@ -32,13 +32,13 @@ bw = 6;
 bh = ph/2;
 
 //slider length
-sl = 25;
+sl = 30;
 
 //slider triangle width
-stw = 3;
+stw = 6;
 
 //slider triangle length
-stl = 10;
+stl = 15;
 
 //slider base height
 sbh = 2;
@@ -155,10 +155,13 @@ module slider()
   //slider total height
   sth = bh*2+ph+sg;
 
+  //slider bottom width
+  sbw = tl*2-pr1*2-dtc+dtac[0];
+
   module slider_part()
   {
   //slider width
-  sw = tl+pl+sg;
+  sw = tl+pl+sg+bh*2+sth;
   //triangle
   translate([0,0,sbh])
   linear_extrude(height=ph+sg)
@@ -166,23 +169,26 @@ module slider()
 
   //slider base
   linear_extrude(height=sbh)
-  polygon(points=[[0,0],[sw/2+sbh+stw/2+sg,0],[sw/2+sbh,-sl],[0,-sl]]);
+  polygon(points=[[0,0],[sw/2+sbh+stw/2+sg,0],[sbw/2+sbh+sg,-sl],[0,-sl]]);
   
   //slider wall
   translate([0,0,sbh+bh+sg])
   linear_extrude(height=ph+sg-bh)
-  polygon(points=[[sw/2+sg+stw/2,0],[sw/2+sbh+stw/2+sg,0],[sw/2+sbh,-sl],[sw/2,-sl]]);
+  polygon(points=[[sw/2+sg+stw/2,0],[sw/2+sbh+stw/2+sg,0],[sbw/2+sbh+sg,-sl],[sbw/2+sg,-sl]]);
 
+  
   //slider wall support
   translate([0,0,sbh])
   linear_extrude(height=ph+sg-bh)
-  polygon(points=[[sw/2+sg+stw/2+sbh-sws,0],[sw/2+sbh+stw/2+sg,0],[sw/2+sbh,-sl],[sw/2+sbh-sws,-sl]]);
+  polygon(points=[[sw/2+sg+stw/2+sbh-sws,0],[sw/2+sbh+stw/2+sg,0],[sbw/2+sbh+sg,-sl],[sbw/2+sg+sbh-sws,-sl]]);
+
+  
 
 
   //slider top
   translate([0,0,bh+ph+sg])
   linear_extrude(height=sbh)
-  polygon(points=[[0,0],[sw/2+sbh+stw/2+sg,0],[sw/2+sbh,-sl],[0,-sl]]);
+  polygon(points=[[0,0],[sw/2+sbh+stw/2+sg,0],[sbw/2+sbh+sg,-sl],[0,-sl]]);
 
   //slider top holder
   difference()
@@ -208,8 +214,9 @@ module slider()
 
 slider();
 
-/*
+translate([0,10,0])
 zipper();
+/*
 translate([tl*2-pr1*2-dtc+dtac[0],pw-pr1/2+g,0])
 mirror([1,0,0])
 zipper();
