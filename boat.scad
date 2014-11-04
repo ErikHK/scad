@@ -98,7 +98,7 @@ cylinder(r=1,h=5);
 
 }
 
-module motor_pulley(r=4, bore=1.1)
+module motor_pulley(r=7, bore=1.1)
 {
 difference()
 {
@@ -146,7 +146,7 @@ cube([hr*2,hr,4]);
 
 
 
-bar(length=3, one_hole=false, holes=[true,true,true,true]);
+bar(length=4, one_hole=false, holes=[true,true,true,true,true]);
 
 /*
 translate([hr*12,0,4])
@@ -332,6 +332,7 @@ cylinder(r=bore_radius,h=height+fastener_height);
 //cube([2,120,2]);
 
 
+//motor_holder();
 
 //translate([38,0,10])  rotate([90,90,0]) 
 //motor_holder();
@@ -350,12 +351,12 @@ translate([60,0,0])
 big_motor_pulley(bore_radius=1.3);
 */
 
-/*
-motor_pulley(bore=1.0);
-translate([15,0,0])
-motor_pulley(bore=1.1);
-translate([15*2,0,0])
-motor_pulley(bore=1.2);
-*/
 
-motor_pulley(r=5, bore=1.2);
+motor_pulley(bore=1.4);
+translate([20,0,0])
+motor_pulley(bore=1.5);
+translate([20*2,0,0])
+motor_pulley(bore=1.6);
+
+
+//motor_pulley(r=5, bore=1.5);

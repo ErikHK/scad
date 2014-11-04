@@ -38,7 +38,7 @@ sl = 30;
 stw = 6;
 
 //slider triangle length
-stl = 15;
+stl = 20;
 
 //slider base height
 sbh = 2;
@@ -176,12 +176,12 @@ module slider()
   linear_extrude(height=ph+sg-bh)
   polygon(points=[[sw/2+sg+stw/2,0],[sw/2+sbh+stw/2+sg,0],[sbw/2+sbh+sg,-sl],[sbw/2+sg,-sl]]);
 
-  
+  /*
   //slider wall support
   translate([0,0,sbh])
   linear_extrude(height=ph+sg-bh)
   polygon(points=[[sw/2+sg+stw/2+sbh-sws,0],[sw/2+sbh+stw/2+sg,0],[sbw/2+sbh+sg,-sl],[sbw/2+sg+sbh-sws,-sl]]);
-
+  */
   
 
 
@@ -205,13 +205,15 @@ module slider()
 
   union()
   {
+  translate([-.01,0,0])
   slider_part();
   mirror([1,0,0])
   slider_part();
   }
 
 }
-translate([0,-10,0])
+translate([0,-25,0])
+rotate([-90,0,0])
 slider();
 
 
