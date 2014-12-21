@@ -1,19 +1,19 @@
+include <roundCornersCube.scad>
+
 $fn = 60;
 
 //ring inner width
-riw = 30;
+riw = 25;
 
 //ring thickness
-rth = 10;
+rth = 12;
 
 //ring wall thickness
-rwth = 4;
+rwth = 3;
 
 //ring bottom thickness
 rbth = 2;
 
-//ring total width
-rtw = riw+rwth*2;
 
 
 //flex inner diameter
@@ -25,6 +25,9 @@ fid = 70.3;			//for nikon 35mm 1.8
 //inner diameter
 id = fid+3;
 
+
+//ring total width
+rtw = riw*2+rwth*4+id;
 
 module donut(d1=2, d2=1, h=1)
 {
@@ -47,8 +50,11 @@ difference()
 {
 union()
 {
-cylinder(d=id+riw+rwth*2, h=rth);
+cylinder(d=id+riw*2+rwth*4, h=rth);
 //cube([id/2+riw/2+rwth,id/2+riw/2+rwth,rth]);
+
+battery_box();
+
 
 }
 translate([0,0,-.05])
@@ -56,7 +62,7 @@ cylinder(d=id, h=rth+.1);
 
 
 translate([0,0,rbth])
-donut(d1=id+riw+rwth, d2=id+rwth, h=rth+2);
+donut(d1=id+riw*2+rwth*2, d2=id+rwth*2, h=rth+12);
 
 }
 }
@@ -85,6 +91,88 @@ cylinder(d=fid, h=rth+10);
 
 }
 
-translate([0,0,-2])
-flex_holder();
-//ring_flash();
+
+module led_holder()
+{
+rad = 3.3;
+//total width
+w = 24.5;
+//fastener height
+fh = 1.65;
+
+//width between fasteners
+wf = 20;
+
+
+
+difference()
+{
+/*
+union()
+{
+translate([-w/2,-rad-1,0])
+cube([w,rad*2+2,rad]);
+
+translate([-rad-1,-w/2,0])
+cube([rad*2+2,w,rad]);
+}
+*/
+cylinder(d=w, h=rad);
+
+translate([0,0,rad])
+sphere(r=rad);
+}
+
+//fasteners
+module fastener()
+{
+translate([-wf/2-2,-2.5,rad])
+{
+cube([2,5,fh+2]);
+translate([2,5,1+fh])
+rotate([90,0,0])
+cylinder(r=1,h=5,$fn=4);
+}
+}
+
+fastener();
+mirror([1,0,0])
+fastener();
+
+}
+
+
+module battery()
+{
+cube([57+2,31+2,28+2]);
+
+
+}
+
+module battery_box()
+{
+/*
+translate([rtw/2-1,rtw/4,0])
+rotate([0,0,-90])
+battery();
+*/
+
+translate([rtw/2-20,rtw/3,0])
+rotate([0,0,-90])
+difference()
+{
+rCube(rtw/1.5,55+3,20,10);
+
+translate([rwth,rwth,rbth*2])
+rCube(rtw/1.5-rwth*2,55+3-rwth*2,22,10);
+}
+}
+
+
+//translate([0,0,-2])
+//flex_holder();
+ring_flash();
+
+
+//translate([id/2+rwth+riw/2,0,rbth])
+led_holder();
