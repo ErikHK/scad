@@ -44,7 +44,13 @@ cylinder(d=d2, h=h+.1);
 module ring_flash()
 {
 
+for(i=[0:7])
+{
 
+translate([(id/2+rwth+riw/2)*cos(45*i), (id/2+rwth+riw/2)*sin(45*i),rbth])
+rotate([0,0,45*i])
+led_holder();
+}
 
 difference()
 {
