@@ -5,10 +5,10 @@ sw = 40;
 rd = 10;
 
 //screw diameter
-sd = 8.2;
+sd = 9.8;
 
 //screw padding
-sp = 15;
+sp = 18;
 
 //thickness
 th = 5;
