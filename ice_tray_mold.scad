@@ -1,3 +1,4 @@
+include <roundCornersCube.scad>
 //num of ice places in x
 numx = 2;
 //num of ice places in x
@@ -44,7 +45,7 @@ module top(padding)
 {
   difference()
   {
-  cube([numx*(itw+th*2+dx), numy*(ith+th*2+dy),.25]);
+  rCube(numx*(itw+th*2+dx), numy*(ith+th*2+dy),.25, 3);
 translate([0,0,-.25])
   translate([dx/2,dy/2,0])
 for( i=[0:numx-1])
@@ -91,9 +92,21 @@ module ice_tray(padding=0)
   
 }
 
-//ice_tray();
-color([1,0,1,1])
-ice_tray(padding=th);
+module walls()
+{
+  difference()
+  {
+  translate([-th,-th,0])
+  rCube(numx*(itw+th*2+dx)+th*2, numy*(ith+th*2+dy)+th*2,.25+2, 3);
+  rCube(numx*(itw+th*2+dx), numy*(ith+th*2+dy),.25+4, 3);
+  }
+}
+
+ice_tray();
+walls();
+//color([1,0,1,1])
+//translate([0,0,th])
+//ice_tray(padding=th);
 
 
 
