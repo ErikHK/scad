@@ -29,7 +29,10 @@ itd = 10;
 ttth = 3;
 
 //thickness
-th = 2;
+th = 3;
+
+//wall thickness of pla parts
+wth = 1.5;
 
 module ice_thing(padding=0)
 {
@@ -43,10 +46,12 @@ module ice_thing(padding=0)
 
 module top(padding)
 {
+  //
   difference()
   {
-  rCube(numx*(itw+th*2+dx), numy*(ith+th*2+dy),.25, 3);
-translate([0,0,-.25])
+  translate([-wth,-wth,0])
+  rCube(numx*(itw+th*2+dx)+wth*2, numy*(ith+th*2+dy)+wth*2,wth, 3);
+translate([0,0,-wth])
   translate([dx/2,dy/2,0])
 for( i=[0:numx-1])
   {
@@ -54,10 +59,11 @@ for( i=[0:numx-1])
     {
       translate([i*(itw+th*2+dx), j*(ith+th*2+dy),0])
       {
-        difference()
-        {
-        ice_thing(padding-.25);
-        }
+        //difference()
+        //{
+        //ice_thing(padding);
+        cube([itw+th*2,ith+th*2,5]);
+        //}
       }
     }
   }
@@ -71,7 +77,7 @@ module ice_tray(padding=0)
 
 
   top(padding);
-  translate([dx/2,dy/2,.25])
+  translate([dx/2,dy/2,wth])
   
   for( i=[0:numx-1])
   {
@@ -81,7 +87,7 @@ module ice_tray(padding=0)
       {
         difference()
         {
-        ice_thing(padding+.25);
+        ice_thing(padding+wth);
         translate([0,0,-1])
         color([1,0,0,1])
         ice_thing(padding);
@@ -97,16 +103,17 @@ module walls()
   difference()
   {
   translate([-th,-th,0])
-  rCube(numx*(itw+th*2+dx)+th*2, numy*(ith+th*2+dy)+th*2,.25+2, 3);
-  rCube(numx*(itw+th*2+dx), numy*(ith+th*2+dy),.25+4, 3);
+  rCube(numx*(itw+th*2+dx)+th*2, numy*(ith+th*2+dy)+th*2,wth+2, 3);
+  rCube(numx*(itw+th*2+dx), numy*(ith+th*2+dy),wth+4, 3);
   }
 }
 
-ice_tray();
-walls();
-//color([1,0,1,1])
-//translate([0,0,th])
-//ice_tray(padding=th);
+//ice_tray();
+//walls();
+//color([1,0,1,.5])
+translate([0,0,th])
+ice_tray(padding=th);
+//top(th);
 
 
 
