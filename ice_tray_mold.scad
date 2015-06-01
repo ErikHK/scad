@@ -57,12 +57,12 @@ for( i=[0:numx-1])
   {
     for( j=[0:numy-1])
     {
-      translate([i*(itw+th*2+dx), j*(ith+th*2+dy),0])
+      translate([i*(itw+th*2+dx)+wth*2+.3, j*(ith+th*2+dy)+wth*2+.3,0])
       {
         //difference()
         //{
         //ice_thing(padding);
-        cube([itw+th*2,ith+th*2,5]);
+        cube([itw-.3*2,ith-.3*2,5]);
         //}
       }
     }
@@ -103,18 +103,19 @@ module walls()
   difference()
   {
   translate([-th,-th,0])
-  rCube(numx*(itw+th*2+dx)+th*2, numy*(ith+th*2+dy)+th*2,wth+2, 3);
-  rCube(numx*(itw+th*2+dx), numy*(ith+th*2+dy),wth+4, 3);
+  rCube(numx*(itw+th*2+dx)+th*2, numy*(ith+th*2+dy)+th*2,ttth+wth, 3);
+  rCube(numx*(itw+th*2+dx), numy*(ith+th*2+dy),ttth+wth+.1, 3);
   }
 }
 
-//ice_tray();
-//walls();
-//color([1,0,1,.5])
+ice_tray();
+walls();
+/*
+color([1,0,1,.5])
 translate([0,0,th])
 ice_tray(padding=th);
 //top(th);
-
+*/
 
 
 //ice_thing();
