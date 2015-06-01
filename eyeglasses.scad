@@ -1,19 +1,20 @@
 include <roundCornersCube.scad>
-$fn = 360;
+$fn = 180;
 //everything in mm!
 //r1 = .3*1000;
 //r2 = .1875*1000;
 
-r1 = .1*1000;
-r2 = .08*1000;
+r2 = .1*1000;
+r1 = .08*1000;
 d = 4;
 
 //diameter of lens
 dol = 35;
+
 //lens width
-lw = 35;
+lw = 50;
 //lens height
-lh = 30;
+lh = 35;
 translate([-(r1),0,0])
 intersection()
 {
