@@ -8,8 +8,8 @@ module spring(w = 30, h = 25, d = 1, sth = 1.5, th=25, n=6)
   {
   rotate([0,0,a])
   cube([w,sth,th]);
-  translate([w*cos(a),h*sin(a)+sth,0])
-  cylinder(d=sth*2+.3,h=th);
+  translate([w*cos(a),h*sin(a)+sth+.2,0])
+  cylinder(d=sth*2+.2,h=th);
 
   translate([w*cos(a),w*sin(a)+sth,0])
   mirror([1,0,0])
@@ -85,6 +85,6 @@ module clamp(l=30, w=30, th=25)
 
 spring();
 pulley_holder();
-translate([0,6*4*1.5-4,0])
+translate([0,6*4*1.5-3,0])
 clamp();
 
