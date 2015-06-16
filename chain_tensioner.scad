@@ -1,6 +1,6 @@
 $fn = 30;
 
-module spring(w = 30, h = 25, d = 1, sth = 1.5, th=25, n=6)
+module spring(w = 30, h = 25, d = 1.5, sth = 3.5, th=25, n=6)
 {
   a = asin(d/w);
 
@@ -44,11 +44,15 @@ module pulley_holder(w=30, th=25)
   cylinder(r=7, h=th);
   }
 
-  translate([w/2,-20, 6])
+  translate([w/2,-20, 6.5])
   cylinder(r=16, h=12);
 
   translate([w/2,-20, -1])
-  cylinder(r=4, h=120);
+  cylinder(r=4.3, h=12);
+
+  //upper hole
+  translate([w/2,-20, 18.25])
+  cylinder(r=4.3, h=120);
   }
 
 }
@@ -74,10 +78,17 @@ module clamp(l=30, w=30, th=25)
 
 
   translate([4,l-1,-1])
-  cylinder(r=2.4, h=35);
+  cylinder(r=2.6, h=15);
 
   translate([w-4,l-1,-1])
-  cylinder(r=2.4, h=35);
+  cylinder(r=2.6, h=15);
+
+  //upper holes
+  translate([4,l-1,20.75])
+  cylinder(r=2.6, h=15);
+
+  translate([w-4,l-1,20.75])
+  cylinder(r=2.6, h=15);
   }
 
 }
@@ -85,6 +96,6 @@ module clamp(l=30, w=30, th=25)
 
 spring();
 pulley_holder();
-translate([0,6*4*1.5-3,0])
+translate([0,63,0])
 clamp();
 
