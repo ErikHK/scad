@@ -108,14 +108,14 @@ module walls()
   }
 }
 
-ice_tray();
-walls();
-/*
+//ice_tray();
+//walls();
+
 color([1,0,1,.5])
 translate([0,0,th])
 ice_tray(padding=th);
 //top(th);
-*/
+
 
 
 //ice_thing();
