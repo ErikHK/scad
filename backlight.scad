@@ -17,7 +17,7 @@ bcw = 38;
 bch = 55;
 
 //battery compartment height sans connectors
-bch = 52;
+bchs = 52;
 
 //battery compartment thickness
 bcth = 13;
@@ -26,10 +26,10 @@ bcth = 13;
 //////////housing//////////
 
 //housing inner width
-hiw = 40;
+hiw = 42;
 
 //housing inner height
-hih = 57;
+hih = 58;
 
 //housing inner thickness
 hith = 20;
@@ -63,6 +63,19 @@ hfhl = 10;
 hfhd = 3;
 
 
+/////stoppers/////
+
+//stopper width
+sw = 15;
+
+//stopper height
+sh = 3.5;
+
+//stopper thickness
+sth = 1.5;
+
+//stopper distance from top
+sd = .5;
 
 
 
@@ -105,19 +118,52 @@ chsth = cth/2;
 
 
 
+module rounder()
+  {
+  translate([0,0,hoth])
+  {
+  rotate([-90,0,0])
+  rCube(how, hoth, hoh,5);
 
+  translate([0,0,-hoth])
+  cube([10,hoh,hoth]);
+  }
+  }
 
+//translate([0,0,0])
+//rounder();
 
 module housing()
 {
+  module stopper()
+  {
+    hull()
+    {
+    sphere(r=sh/2, $fn=7);
+    translate([0,sw-sh,0])
+    sphere(r=sh/2, $fn=7);
+    }
+  }
+  
+  translate([how-wth+sh/2-sth,1*hoh/3 + sh/2 - sw/2,hoth-sh/2-sd])
+  stopper();
+
+  translate([how-wth+sh/2-sth,2*hoh/3 -sw/2 + sh/2,hoth-sh/2-sd])
+  stopper();
+
+
   difference()
   {
-  cube([hiw+wth*2, hih+wth*2, hith]);
+  //intersection()
+  //{
+  cube([hiw+wth*2, hih+wth*2, hoth]);
+  //rounder();
+  //}
   translate([wth,wth,wth])
-  rCube(hiw, hih, hith, rr);
+  rCube(hiw, hih, hith+1, rr);
 
   //fastener hole
-  translate([cth*1.5,hoh/2-hfhl/2,hoth-hfhw*1.5-hfhd])
+  translate([cth*1.5,hoh/2-hfhl/2,hoth-hfhw-hfhd])
   rotate([0,-90,0])
   rCube(hfhw,hfhl,cth*2,2);
   }
@@ -182,8 +228,22 @@ module clip()
 
 }
 
-translate([0,0,0])
+module battery_comp()
+{
+  cube([bcw,bch,bcth]);
+}
+
+//translate([wth+1, wth+1,0])
+//battery_comp();
+
+module light()
+{
+
 housing();
 translate([cir+cth,0,0])
 rotate([-90,0,0])
 clip();
+}
+
+rotate([90,0,0])
+light();
