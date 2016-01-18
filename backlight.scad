@@ -96,7 +96,7 @@ cl = hoh;
 cir = 3;
 
 //clip angle
-ca = asin(cir/cw*.9);
+ca = asin(cir/cw*.8);
 
 //clip hole length
 chl = 6;
@@ -114,6 +114,19 @@ chsl = 4;
 
 //clip hole support thickness
 chsth = cth/2;
+
+
+//////////switch hole//////////
+//switch hole width
+swhw = 8;
+
+//switch hole height
+swhh = 4.2;
+
+//////////fastener//////////
+
+//fastener give
+fg = .2;
 
 
 
@@ -135,7 +148,7 @@ module rounder()
 
 module housing()
 {
-  module stopper()
+module stopper()
   {
     hull()
     {
@@ -144,7 +157,8 @@ module housing()
     sphere(r=sh/2, $fn=7);
     }
   }
-  
+
+
   translate([how-wth+sh/2-sth,1*hoh/3 + sh/2 - sw/2,hoth-sh/2-sd])
   stopper();
 
@@ -166,9 +180,12 @@ module housing()
   translate([cth*1.5,hoh/2-hfhl/2,hoth-hfhw-hfhd])
   rotate([0,-90,0])
   rCube(hfhw,hfhl,cth*2,2);
+
+  //switch hole
+  translate([-swhw/2 + how/2,5,hoth/2-swhh/2])
+  rotate([90,0,0])
+  rCube(swhw, swhh, 10,1.5);
   }
-
-
 
 }
 
@@ -239,11 +256,64 @@ module battery_comp()
 module light()
 {
 
+  intersection()
+  {
+  
+  translate([0,0,-20])
+  rCube(hiw+wth*2, hih+wth*2, hoth+20,4);
+union()
+{
 housing();
 translate([cir+cth,0,0])
 rotate([-90,0,0])
 clip();
 }
+}
+}
 
-rotate([90,0,0])
+module lid()
+{
+rCube(how,hoh, wth,4);
+
+color("red")
+translate([wth,wth,wth])
+rotate([90,0,90])
+linear_extrude(height=1.67)
+polygon(points=[[0,0],[hih/2-hfhl/2, hfhd+hfhw],[hih/2+hfhl/2,hfhd+hfhw],[hih,0]], paths=[[0,1,2,3,0]]);
+
+//fastener
+hull()
+{
+translate([hfhw-wth,wth+hih/2+hfhl/2-hfhw/2,hfhd+hfhw])
+sphere(d=hfhw-fg*2, $fn=8);
+
+translate([hfhw-wth,wth+hih/2-hfhl/2+hfhw/2,hfhd+hfhw])
+sphere(d=hfhw-fg*2, $fn=8);
+}
+
+
+//stoppers "hinge"
+color("green")
+translate([how-1.67-wth-sth,wth,wth])
+rotate([90,0,90])
+linear_extrude(height=1.67)
+polygon(points=[[0,0],[hih/3-sw/2, sd+sh+1.67],[2*hih/3+sw/2,sd+sh+1.67],[hih,0]], paths=[[0,1,2,3,0]]);
+
+
+translate([how-1.67-wth-sth+1.67,wth,wth+1.67+sh+sd])
+rotate([0,90,0])
+rotate([90,0,90])
+linear_extrude(height=1.4)
+polygon(points=[[hih/3-sw/2,0],[hih/3-sw/2+sth, sth],[2*hih/3+sw/2-sth,sth],[2*hih/3+sw/2,0]], paths=[[0,1,2,3,0]]);
+
+
+}
+
+//translate([0,hoh,hoth+wth])
+//rotate([180,0,0])
+translate([50,0,0])
+lid();
+
+//rotate([90,0,0])
+//color([.5,.5,.5,.1])
 light();
