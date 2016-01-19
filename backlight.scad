@@ -141,6 +141,11 @@ lsth = 2.5;
 //lid thickness
 lth = 3;
 
+//////////led holder//////////
+//led holder width
+lhw = 
+
+
 
 
 
