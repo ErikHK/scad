@@ -20,7 +20,7 @@ bch = 55;
 bchs = 52;
 
 //battery compartment thickness
-bcth = 13;
+bcth = 14;
 
 
 //////////housing//////////
@@ -83,7 +83,7 @@ sd = .5;
 //////////clip//////////
 
 //clip thickness
-cth = 2.5;
+cth = 2;
 
 //clip width
 cw = bw + 4;
@@ -123,10 +123,23 @@ swhw = 8;
 //switch hole height
 swhh = 4.2;
 
+//switch hole distance from top
+shdft = 1.5;
+
 //////////fastener//////////
 
 //fastener give
 fg = .2;
+
+
+
+//////////lid//////////
+
+//lid sphere thickness
+lsth = 2.5;
+
+//lid thickness
+lth = 3;
 
 
 
@@ -182,7 +195,7 @@ module stopper()
   rCube(hfhw,hfhl,cth*2,2);
 
   //switch hole
-  translate([-swhw/2 + how/2,5,hoth/2-swhh/2])
+  translate([-swhw/2 + how/2,5,hoth-swhh-shdft])
   rotate([90,0,0])
   rCube(swhw, swhh, 10,1.5);
   }
@@ -250,7 +263,7 @@ module battery_comp()
   cube([bcw,bch,bcth]);
 }
 
-//translate([wth+1, wth+1,0])
+//translate([wth+1, wth+1,wth])
 //battery_comp();
 
 module light()
@@ -273,10 +286,24 @@ clip();
 
 module lid()
 {
-rCube(how,hoh, wth,4);
+
+//lid sphere
+R = lsth/2 + hoh*hoh/(8*lsth);
+
+
+intersection()
+{
+translate([how/2,hoh/2,R-lsth])
+sphere(r=R, $fn=190);
+translate([0,0,-lsth])
+rCube(how,hoh,wth+lsth,4);
+}
+
+
+rCube(how,hoh, lth,4);
 
 color("red")
-translate([wth,wth,wth])
+translate([wth,wth,lth-.0001]) //manifold bug fix...
 rotate([90,0,90])
 linear_extrude(height=1.67)
 polygon(points=[[0,0],[hih/2-hfhl/2, hfhd+hfhw],[hih/2+hfhl/2,hfhd+hfhw],[hih,0]], paths=[[0,1,2,3,0]]);
@@ -284,23 +311,23 @@ polygon(points=[[0,0],[hih/2-hfhl/2, hfhd+hfhw],[hih/2+hfhl/2,hfhd+hfhw],[hih,0]
 //fastener
 hull()
 {
-translate([hfhw-wth,wth+hih/2+hfhl/2-hfhw/2,hfhd+hfhw])
+translate([hfhw-wth,wth+hih/2+hfhl/2-hfhw/2,lth+hfhd+hfhw/2])
 sphere(d=hfhw-fg*2, $fn=8);
 
-translate([hfhw-wth,wth+hih/2-hfhl/2+hfhw/2,hfhd+hfhw])
+translate([hfhw-wth,wth+hih/2-hfhl/2+hfhw/2,lth+hfhd+hfhw/2])
 sphere(d=hfhw-fg*2, $fn=8);
 }
 
 
 //stoppers "hinge"
 color("green")
-translate([how-1.67-wth-sth,wth,wth])
+translate([how-1.67-wth-sth,wth,lth-.0001]) //manifold bug fix...
 rotate([90,0,90])
 linear_extrude(height=1.67)
 polygon(points=[[0,0],[hih/3-sw/2, sd+sh+1.67],[2*hih/3+sw/2,sd+sh+1.67],[hih,0]], paths=[[0,1,2,3,0]]);
 
 
-translate([how-1.67-wth-sth+1.67,wth,wth+1.67+sh+sd])
+translate([how-1.67-wth-sth+1.67,wth,lth+1.67+sh+sd])
 rotate([0,90,0])
 rotate([90,0,90])
 linear_extrude(height=1.4)
@@ -309,11 +336,24 @@ polygon(points=[[hih/3-sw/2,0],[hih/3-sw/2+sth, sth],[2*hih/3+sw/2-sth,sth],[2*h
 
 }
 
-//translate([0,hoh,hoth+wth])
+
+module led_holder()
+{
+  
+
+}
+
+
+led_holder();
+
+//translate([0,hoh,hoth+lth])
 //rotate([180,0,0])
-translate([50,0,0])
-lid();
+
+
+//translate([0,0,hoth])
+//rotate([90,0,0])
+//lid();
 
 //rotate([90,0,0])
 //color([.5,.5,.5,.1])
-light();
+//light();
