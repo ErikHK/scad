@@ -142,12 +142,38 @@ lsth = 2.5;
 lth = 3;
 
 //////////led holder//////////
-//led holder width
-lhw = 
 
+//led holder outer width
+lhow = 41;
 
+//led holder outer height
+lhoh = 13;
 
+//led holder thickness
+lhth = 18;
 
+//led holder wall thickness
+lhwth = 1.5;
+
+//led holder inner width
+lhiw = lhow-lhwth*2;
+
+//led holder inner height
+lhih = lhoh-lhwth;
+
+//////////led fastener//////////
+
+//led fastener width
+lfw = 18.4;
+
+//led fastener inner height
+lfih = 1.4;
+
+//led fastener outer height
+lfoh = 3.4;
+
+//led fastener snap width
+lfsw = 1.3;
 
 module rounder()
   {
@@ -344,12 +370,41 @@ polygon(points=[[hih/3-sw/2,0],[hih/3-sw/2+sth, sth],[2*hih/3+sw/2-sth,sth],[2*h
 
 module led_holder()
 {
+  difference()
+  {
+  cube([lhow, lhoh, lhth]);
+  translate([lhwth, lhwth+.01,-.1])
+  cube([lhiw, lhih, lhth+2]);
+  }
+
+  module fastener()
+  {
+  translate([0,-lfih-(lfoh-lfih),0])
+  cube([lfsw, lfoh, lhth]);
+  translate([lfsw,-lfih-(lfoh-lfih)/2,0])
+  cylinder(d=lfoh-lfih, h=lhth, $fn=4);
+  }
   
+  translate([lhow/2-lfw/2-lfsw,0,0])
+  fastener();
+  translate([lhow/2+lfw/2+lfsw,0,0])
+  mirror([1,0,0])
+  fastener();
+
+  translate([0,lhoh,0])
+  cube([5,lhwth,lhth]);
+
+  translate([lhow-5,lhoh,0])
+  cube([5,lhwth,lhth]);
+
+  //translate([lhow/2-lfw/2,0,0])
+  //color("blue")
+  //cube([18.3, 10, 10]);
 
 }
 
 
-led_holder();
+//led_holder();
 
 //translate([0,hoh,hoth+lth])
 //rotate([180,0,0])
@@ -359,6 +414,6 @@ led_holder();
 //rotate([90,0,0])
 //lid();
 
-//rotate([90,0,0])
+rotate([90,0,0])
 //color([.5,.5,.5,.1])
-//light();
+light();
