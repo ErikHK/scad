@@ -1,7 +1,7 @@
 $fn = 80;
 
 //feet width
-fw = 28;
+fw = 32;
 
 c = fw*2;
 
@@ -21,7 +21,7 @@ ll = 20;
 lw = 10;
 
 //distance between feet
-dbf = .75;
+dbf = .75+.25;
 
 
 module foot()
@@ -41,7 +41,7 @@ module front_leg(h=fth)
   foot();
   translate([fw/2-lw/2+1,-8,0])
   rotate(20)
-  cube([lw, ll+1, h]);
+  cube([lw, ll+3, h]);
 }
 
 module hind_leg()
@@ -64,30 +64,34 @@ module hind_leg()
   translate([-fw/2-lw/2+1, ll-10, 0])
   cube([lw, 10, fth-tg]);
   translate([-2, ll-5, 0])
-  cylinder(d=8, h=fth-tg);
+  cylinder(d=8+2.5, h=fth-tg);
   }
   }
   
   translate([-2, ll-5, 0])
-  cylinder(d=5, h=fth+10);
+  cylinder(d=8.5, h=fth+10);
   
-  translate([2.1,20.1-2,17.9])
-  rotate([0,90,180])
-    linear_extrude(height=20.2)
-  polygon(points=[[18,18], [18,-2], [3,-2]], paths=[[0,1,2]]);
+ translate([-25,0,-.01])
+mirror([0,0,1])
+  rotate([0,90,0])
+    linear_extrude(height=30)
+  polygon(points=[[0,0], [0,22], [22,22]], paths=[[0,1,2]]);
   
   
   
-  translate([2,10,17])  
+  translate([2,9.9-.2,19.3])  
   rotate([0,90,90])
-  linear_extrude(height=10)
-  polygon(points=[[10,10], [10,-0], [0,-0]], paths=[[0,1,2]]);
+  linear_extrude(height=14)
+  polygon(points=[[12,12], [12,-2], [0,-2]], paths=[[0,1,2]]);
     }
     
   translate([-2,ll-5,0])
-  cylinder(d=4, h=fth-.5);
+  cylinder(d=4+3, h=fth-.5);
     
-  
+
+
+
+
   
 }
 
@@ -105,8 +109,8 @@ module body()
   front_leg();
   }
     
-  translate([-24,0,3])
-  cube([22+5,30, fth-10+3]);
+  translate([-27,0,3])
+  cube([22+7+2,30, fth-10+3]);
       
   
   //translate([-2, ll-5, -.5])
@@ -115,7 +119,7 @@ module body()
   
 }
 
-body();
+//body();
 
 
 hind_leg();
