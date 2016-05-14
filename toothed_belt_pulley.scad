@@ -1,5 +1,5 @@
 //outer diameter
-od = 35;
+od = 40;
 
 //tooth height
 th = 5;
@@ -11,7 +11,10 @@ tiw = 6;
 tow = 7;
 
 //pulley thickness
-pth = 20;
+pth = 25;
+
+//internal bore
+ib = 5;
 
 module tooth()
 {
@@ -21,20 +24,32 @@ translate([-tow/2,-tiw/2,0])
 polygon(points=[[0,0], [tow, 0], [(tow-tiw)/2, th], [tow-(tow-tiw)/2, th]], paths=[[0,1,3,2]]);
 }
 
-tooth();
-
 module pulley()
 {
-ang = 40;
+ lim = od/4;
+    
+ang = 360/lim;
+ 
+ translate([0,0,2])
+ difference()
+ {   
+union()
+    {
+        cylinder(d=od+10, h=2);
 cylinder(d=od, h=pth);
 
 cylinder(d=od-10, h=pth+10);
 
-for(i=[0:8])
+for(i=[0:od/4])
 {
 translate([(.5*od+th/2-1)*cos(ang*i), (.5*od + th/2-1)*sin(ang*i),0])
 rotate(ang*i)
 tooth();
+}
+}
+
+cylinder(d=ib, h=pth+11);
+
 }
 
 }
