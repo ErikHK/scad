@@ -11,7 +11,7 @@ translate([-20,-10,0])
 rCube(40, 20, 30, 1.5);
 
 translate([0,0,-2])
-trapezoidThread(
+trapezoidThreadNegativeSpace(
 	length=length, 			// axial length of the threaded rod 
 	pitch=pitch, 			// axial distance from crest to crest
 	pitchRadius=pitchRadius, 	// radial distance from center to mid-profile
