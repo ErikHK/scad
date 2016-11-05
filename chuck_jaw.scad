@@ -1,5 +1,5 @@
 //jaw width
-jw = 12;
+jw = 12-.4;
 
 //jaw length
 jl = 35-17.25;
@@ -44,8 +44,8 @@ module jaw()
     //guide
     difference()
     {
-    translate([jw/2-4,5.75+4+4,-6])
-    cube([8, 4, 6]);
+    translate([jw/2-3.9,5.75+4+4-.5,-6])
+    cube([7.8, 4+.5, 6]);
  
      
     translate([jw/2,20,-8])
@@ -56,17 +56,19 @@ module jaw()
     }
     
     //grooves (fins)
-    translate([0,0,2])
-    cube([2,jl,2.5]);
+    translate([0,0,2-.3])
+    cube([2+.2,jl+1,2.5]);
     
-    translate([jw-1.99,0,2])
-    cube([2,jl,2.5]);
+    translate([jw-1.99-.2,0,2-.3])
+    cube([2+.2,jl+1,2.5]);
     
     }
     
     
     
 }
+
+rotate([-90,0,0])
 
 jaw();
 
