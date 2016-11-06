@@ -57,7 +57,7 @@ trapezoidThreadNegativeSpace(
 	RH=true, 				// true/false the thread winds clockwise looking along shaft, i.e.follows the Right Hand Rule
 	clearance=0.1, 			// radial clearance, normalized to thread height
 	backlash=0.1, 			// axial clearance, normalized to pitch
-	stepsPerTurn=40 			// number of slices to create per turn
+	stepsPerTurn=20 			// number of slices to create per turn
 		);
 
 //}
@@ -70,7 +70,7 @@ difference()
 trapezoidThread(
 	length=h, 			// axial length of the threaded rod 
 	pitch=pitch, 			// axial distance from crest to crest
-	pitchRadius=pitchRadius+.3, 	// radial distance from center to mid-profile
+	pitchRadius=pitchRadius-.1, 	// radial distance from center to mid-profile
 	threadHeightToPitch=0.3, 	// ratio between the height of the profile and the pitch 
 						// std value for Acme or metric lead screw is 0.5
 	profileRatio=0.5, 			// ratio between the lengths of the raised part of the profile and the pitch
@@ -80,7 +80,7 @@ trapezoidThread(
 	RH=true, 				// true/false the thread winds clockwise looking along shaft, i.e.follows the Right Hand Rule
 	clearance=0, 			// radial clearance, normalized to thread height
 	backlash=.2, 			// axial clearance, normalized to pitch
-	stepsPerTurn=40 			// number of slices to create per turn
+	stepsPerTurn=20 			// number of slices to create per turn
 		);
 
 translate([0,0,-1])
@@ -155,7 +155,8 @@ translate([0,0,3.1-.1])
 }
 
 
-rotate([0,0,0])
+//rotate([0,0,0])
+module holder()
 {
 
 difference()
@@ -163,7 +164,7 @@ difference()
 union()
 {
 translate([0,0,20+4.1+.4])
-cylinder(r1=pitchRadius-1.75, r2=22, h=2);
+cylinder(r1=pitchRadius-.5, r2=22, h=2);
 
 thread(h=20, pitchRadius=26);
 
@@ -182,7 +183,32 @@ thread_negative(h=30, pitchRadius=20, pitch=6);
 }
 
 
-//f_mount();
+module small_lens_holder()
+{
+    difference()
+    {
+    union()
+    {
+        
+        cylinder(r=23, h=2);
+        translate([0,0,2])
+        thread(h=10, pitchRadius=20, pitch=6, hole=10);
+        
+        
+    }   
+    translate([0,0,10])
+    cylinder(d=25, h=20);
+    
+    translate([0,0,-1])
+    cylinder(d=21, h=20);
+    
+    //translate([0,0,10])
+    //thread_negative(h=20, pitchRadius=15, pitch=6);
+    }
+}
 
+small_lens_holder();
+//f_mount();
+//holder();
 
 
