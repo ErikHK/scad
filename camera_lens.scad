@@ -1,4 +1,4 @@
-$fn = 40;
+$fn = 80;
 use <Thread_Library.scad>
 
 
@@ -57,7 +57,7 @@ trapezoidThreadNegativeSpace(
 	RH=true, 				// true/false the thread winds clockwise looking along shaft, i.e.follows the Right Hand Rule
 	clearance=0.1, 			// radial clearance, normalized to thread height
 	backlash=0.1, 			// axial clearance, normalized to pitch
-	stepsPerTurn=20 			// number of slices to create per turn
+	stepsPerTurn=40 			// number of slices to create per turn
 		);
 
 //}
@@ -80,7 +80,7 @@ trapezoidThread(
 	RH=true, 				// true/false the thread winds clockwise looking along shaft, i.e.follows the Right Hand Rule
 	clearance=0, 			// radial clearance, normalized to thread height
 	backlash=.2, 			// axial clearance, normalized to pitch
-	stepsPerTurn=20 			// number of slices to create per turn
+	stepsPerTurn=40 			// number of slices to create per turn
 		);
 
 translate([0,0,-1])
@@ -175,10 +175,24 @@ f_mount();
 translate([0,0,-1])
 cylinder(d=35, h=45);
 
-thread_negative(h=30, pitchRadius=20, pitch=6);
+thread_negative(h=40, pitchRadius=20, pitch=6);
 }
 
 
+
+}
+
+
+module retainer()
+{
+
+
+  
+  difference()
+  {
+cylinder(d=24.5, h=13);
+  cylinder(d=22, h=13);
+  }
 
 }
 
@@ -190,25 +204,166 @@ module small_lens_holder()
     union()
     {
         
-        cylinder(r=23, h=2);
+        cylinder(r=23, h=0);
         translate([0,0,2])
-        thread(h=10, pitchRadius=20, pitch=6, hole=10);
-        
+        thread(h=-2+15, pitchRadius=20, pitch=6, hole=10);
         
     }   
-    translate([0,0,10])
-    cylinder(d=25, h=20);
+    translate([0,0,3])
+    cylinder(d=26, h=20);
     
     translate([0,0,-1])
     cylinder(d=21, h=20);
+
+    
+    translate([-40,-1.5,15.5])
+    cube([80, 3, 20]);
+    //translate([0,0,10])
+    //thread_negative(h=20, pitchRadius=15, pitch=6);
+    }
+}
+
+
+module small_holder(h=10)
+{
+    difference()
+    {
+    union()
+    {
+        
+        cylinder(r=23, h=0);
+        translate([0,0,2])
+        thread(h=-2+h, pitchRadius=20, pitch=6, hole=10);
+        
+    }   
+    translate([0,0,0])
+    cylinder(d=26, h=20);
+    
+    translate([0,0,-1])
+    cylinder(d=21, h=20);
+
+    
+    translate([-40,-1.5,h])
+    cube([80, 3, 20]);
+
+rotate([0,0,90])
+translate([-40,-1.5,2])
+    
+    cube([80, 3, 2]);
+    //translate([0,0,10])
+    //thread_negative(h=20, pitchRadius=15, pitch=6);
+    }
+}
+
+
+
+module big_holder(h=12)
+{
+    difference()
+    {
+    union()
+    {
+        
+        cylinder(r=23, h=0);
+        translate([0,0,2])
+        thread(h=-2+h, pitchRadius=25.2, pitch=10, hole=10);
+        
+    }   
+    translate([0,0,0])
+    cylinder(d=38, h=20);
+    
+    translate([0,0,-1])
+    cylinder(d=21, h=20);
+
+    
+    translate([-40,-1.5,h])
+    cube([80, 3, 20]);
+
+rotate([0,0,90])
+translate([-40,-1.5,2])
+    
+    cube([80, 3, 2]);
+    //translate([0,0,10])
+    //thread_negative(h=20, pitchRadius=15, pitch=6);
+    }
+}
+
+
+module super_small_lens_holder()
+{
+    difference()
+    {
+    union()
+    {
+        
+        cylinder(r=23, h=0);
+        translate([0,0,2])
+        thread(h=-1.8+6, pitchRadius=20, pitch=6, hole=10);
+        
+        
+    }   
+    translate([0,0,4])
+    cylinder(d=20, h=20);
+    
+    translate([0,0,-1])
+    cylinder(d=16, h=20);
     
     //translate([0,0,10])
     //thread_negative(h=20, pitchRadius=15, pitch=6);
     }
 }
 
-small_lens_holder();
+
+
+module diverging_lens_holder()
+{
+    difference()
+    {
+    union()
+    {
+        
+        cylinder(r=23, h=0);
+        translate([0,0,2])
+        thread(h=-3+25, pitchRadius=25.05, pitch=10, hole=10);
+        
+        
+    }   
+    translate([0,0,4])
+    cylinder(d=37, h=26);
+    
+    translate([0,0,-1])
+    cylinder(d=32.5, h=26);
+
+
+    translate([-40,-1.5,27.5-3])
+    cube([80, 3, 20]);
+    
+    //translate([0,0,10])
+    //thread_negative(h=20, pitchRadius=15, pitch=6);
+    }
+}
+
+
+module outer_holder()
+{
+difference()
+    {
+
+ translate([0,0,-1])
+    cylinder(d=58, h=50);
+        thread_negative(h=51, pitchRadius=25+.2, pitch=10, hole=10);
+ 
+    }
+
+}
+
+translate([50,0,0])
+//small_lens_holder();
+//retainer();
+//diverging_lens_holder();
+//translate([0,80,0])
+//outer_holder();
 //f_mount();
 //holder();
-
+big_holder();
 
