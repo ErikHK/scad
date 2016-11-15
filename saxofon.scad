@@ -74,20 +74,41 @@ module ligature()
 translate([-10,28/2+4,15/2])
   rotate([0,90,0])
   cylinder(d=6, h=20);
-  }
-
-  
-
-  
-
-
-  
+  }  
 
 }
 
 
+module extension1()
+{
+  translate([0,0,15])
+  cylinder(d=24, h=.3);
+  
+  difference()
+  {
+    union()
+    {
+      cylinder(d=24, h=80);
+      translate([0,0,80])
+      cylinder(d=18, h=15);
+      
+    }
+    //cylinder(d=18, h=75);
+    //translate([0,0,75])
+    //cylinder(d1=18,d2=15,h=5.1);
+    translate([0,0,-.1])
+    cylinder(d=14, h=96);
+    translate([0,0,-.1])
+    cylinder(d=18, h=15.1);
+  }
+  
+  
+  
+}
 
-ligature();
+//ligature();
 
-//mouth_piece();
+mouth_piece();
+translate([40,0,0])
+extension1();
 
