@@ -1,11 +1,11 @@
 use <Thread_Library.scad>
 
-$fn=100;
+$fn=120;
 
 //////screw head//////
 
 //screw head height
-shh = 12.7;
+shh = 12.7-1;
 
 //screw head diameter
 shd = 20.9;
@@ -52,7 +52,7 @@ module insert()
     {
         union()
         {
-            cylinder(d=20, h=18);
+            cylinder(d=19.5, h=18);
             //cylinder(d=25, h=2);
         }
         trapezoidThreadNegativeSpace(   length=28.3, pitch=4.233,     pitchRadius=sod/2-.8, threadAngle=29, threadHeightToPitch=.35, clearance=0.3, countersunk=0.3);
@@ -96,15 +96,17 @@ trapezoidThread(length=28.3, pitch=4.233, pitchRadius=sod/2-.8, threadAngle=29, 
 
 module wheel_screw()
 {
-    bh = 20;
-    len = 20;
+    bh = 15.6+.5;
+    len = 16;
 trapezoidThread(length=len, pitch=4.233, pitchRadius=sod/2-.8, threadAngle=29, threadHeightToPitch=.35);
     
     translate([0,0,len+bh])
     head();
     
     translate([0,0,len])
-    cylinder(d=13.9, h=bh);
+    cylinder(d=13.9-.075-.02, h=bh-1);
+    translate([0,0,len+bh-1])
+    cylinder(d1=13.9-.075-.02, d2=13.7, h=1);
 }
 
 module wheel()
@@ -288,8 +290,32 @@ module small_mould()
     }
 }
 
+module skorsten()
+{
+    difference()
+    {
+        union()
+        {
+            cylinder(d1=28+2, d2=23+2, h=30);
+            cylinder(d=32+2, h=5);
+            
+            translate([0,0,5])
+            cylinder(d1=32+2, d2=24, h=5);
+        }
+        
+        translate([0,0,13])
+        cylinder(d=14, h=32);
+        translate([0,0,-.1])
+        cylinder(d1=23+1, d2=22+2, h=13+1);
+        
+    }
+    
+}
 
-small_mould();
+
+//small_mould();
+//rotate([180,0,0])
+//skorsten();
 
 //wheel2();
 
@@ -301,7 +327,7 @@ small_mould();
 //head();
 
 //translate([30,0,0])
-//insert();
+insert();
 
 //wheel_screw();
 
